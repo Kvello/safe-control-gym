@@ -249,6 +249,8 @@ class CartPole(BenchmarkEnv):
         done = self._get_done()
         info = self._get_info()
         obs, rew, done, info = super().after_step(obs, rew, done, info)
+        obs = obs.astype(np.float32)
+        rew = rew.astype(np.float32)
         return obs, rew, done, info
 
     def reset(self, seed=None):
@@ -337,6 +339,7 @@ class CartPole(BenchmarkEnv):
         obs, info = self._get_observation(), self._get_reset_info()
         obs, info = super().after_reset(obs, info)
         # Return either an observation and dictionary or just the observation.
+        obs = obs.astype(np.float32)
         return obs, info
 
     def render(self, mode='human'):
