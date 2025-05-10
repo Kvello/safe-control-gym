@@ -385,7 +385,7 @@ class Quadrotor(BaseAviary):
         self._update_and_store_kinematic_information()
         obs, info = self._get_observation(), self._get_reset_info()
         obs, info = super().after_reset(obs, info)
-
+        obs = obs.astype(np.float32)
         # Return either an observation and dictionary or just the observation.
         return obs, info
 
@@ -439,6 +439,8 @@ class Quadrotor(BaseAviary):
         rew = self._get_reward()
         done = self._get_done()
         info = self._get_info()
+        obs = obs.astype(np.float32)
+        rew = rew.astype(np.float32)
         obs, rew, done, info = super().after_step(obs, rew, done, info)
         return obs, rew, done, info
 
